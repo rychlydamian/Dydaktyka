@@ -1,0 +1,56 @@
+library(XLConnect)
+wb <- loadWorkbook('gospodarstwa.xls')
+gosp <- readWorksheet(wb,'gospodarstwa')
+vars <- readWorksheet(wb,'opis cech')
+vars_labels <- readWorksheet(wb,'opis wariantów cech')
+
+library(dplyr)
+gosp <- tbl_df(gosp) 
+
+library(ggplot2)
+#library(ggthemes)
+
+gosp <- gosp %>%
+  mutate(klm = factor( x = klm,
+                       levels = 6:1,
+                       labels = c('Wieś',
+                                  '<20',
+                                  '[20,100)',
+                                  '[100,200)',
+                                  '[200,500)',
+                                  '>=500'),
+                       ordered = T))
+
+gosp <- gosp %>%
+  mutate(woj = factor( x = woj,
+                       levels = c('02','04','06','08',
+                                  '10','12','14','16',
+                                  '18','20','22','24',
+                                  '26','28','30','32'),
+                       labels = c('dolnośląskie','kujawsko-pomorskie',
+                                  'lubelskie','lubuskie',
+                                  'łódzkie','małopolskie',
+                                  'mazowieckie','opolskie',
+                                  'podkarpackie','podlaskie',
+                                  'pomorskie','śląskie',
+                                  'świętokrzyskie','warmińsko-mazurskie',
+                                  'wielkopolskie','zachodniopomorskie'),
+                       ordered = T))
+
+gosp %>%
+  count(klm,woj) %>%
+  group_by(woj) %>%
+  mutate(procent = n/sum(n)) %>%
+  ggplot(data = .,
+         aes(x = '',
+             y = procent,
+             group = klm,
+             fill = klm)) +
+  geom_bar(stat = 'identity',
+           col='black') +
+  facet_wrap(~woj, ncol=1) + 
+  xlab('Województwa') +
+  ggtitle('Udział procentowy danych klas miejscowości 
+          w poszczególnych województwach') +
+  coord_flip()
+
