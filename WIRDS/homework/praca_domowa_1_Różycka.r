@@ -1,8 +1,8 @@
 library(XLConnect)
-wb <- loadWorkbook('gospodarstwa.xls')
+wb <- loadWorkbook('WIRDS/datasets/gospodarstwa.xls')
 gosp <- readWorksheet(wb,'gospodarstwa')
 vars <- readWorksheet(wb,'opis cech')
-vars_labels <- readWorksheet(wb,'opis wariantów cech')
+vars_labels <- readWorksheet(wb,'opis wariantÃ³w cech') ## problem z kodowaniem znakÃ³w (przez niezapisanie w UTF-8)
 
 library(dplyr)
 gosp <- tbl_df(gosp) 
@@ -13,7 +13,7 @@ library(ggplot2)
 gosp <- gosp %>%
   mutate(klm = factor( x = klm,
                        levels = 6:1,
-                       labels = c('Wieœ',
+                       labels = c('Wie?',
                                   '<20',
                                   '[20,100)',
                                   '[100,200)',
@@ -27,13 +27,13 @@ gosp <- gosp %>%
                                   '10','12','14','16',
                                   '18','20','22','24',
                                   '26','28','30','32'),
-                       labels = c('dolnoœl¹skie','kujawsko-pomorskie',
+                       labels = c('dolno?l?skie','kujawsko-pomorskie',
                                   'lubelskie','lubuskie',
-                                  '³ódzkie','ma³opolskie',
+                                  '??dzkie','ma?opolskie',
                                   'mazowieckie','opolskie',
                                   'podkarpackie','podlaskie',
-                                  'pomorskie','œl¹skie',
-                                  'œwiêtokrzyskie','warmiñsko-mazurskie',
+                                  'pomorskie','?l?skie',
+                                  '?wi?tokrzyskie','warmi?sko-mazurskie',
                                   'wielkopolskie','zachodniopomorskie'),
                        ordered = T))
 
@@ -49,8 +49,8 @@ gosp %>%
   geom_bar(stat = 'identity',
            col='black') +
   facet_wrap(~woj, ncol=1) + 
-  xlab('Województwa') +
-  ggtitle('Udzia³ procentowy danych klas miejscowoœci 
-          w poszczególnych województwach') +
+  xlab('Wojew?dztwa') +
+  ggtitle('Udzia? procentowy danych klas miejscowo?ci 
+          w poszczeg?lnych wojew?dztwach') +
   coord_flip()
 

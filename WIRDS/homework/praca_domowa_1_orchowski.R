@@ -1,7 +1,7 @@
 ### wczytanie danych z gospodarstw
 
 library(XLConnect)
-wb <- loadWorkbook('./gospodarstwa.xls')
+wb <- loadWorkbook('WIRDS/datasets/gospodarstwa.xls')
 gosp <- readWorksheet(wb,'gospodarstwa')
 
 library(dplyr)
@@ -14,7 +14,7 @@ library(ggplot2)
 gosp <- gosp %>%
   mutate(klm = factor( x = klm,
                        levels = 6:1,
-                       labels = c('Wieœ',
+                       labels = c('Wie?', ## problem z kodowaniem znakÃ³w
                                   '<20',
                                   '[20,100)',
                                   '[100,200)',
@@ -22,27 +22,27 @@ gosp <- gosp %>%
                                   '>=500'),
                        ordered = T))
 
-# zmiana nr województwa na etykiety
+# zmiana nr wojew?dztwa na etykiety
 
 gosp <- gosp %>%
   mutate(woj = factor( x = woj,
                        levels = c('02','04','06','08','10','12','14',
                                   '16','18','20','22','24','26','28',
                                   '30','32'),
-                       labels = c('dolnoœl¹skie',
+                       labels = c('dolno?l?skie',
                                   'kujawsko-pomorskie',
                                   'lubelskie',
                                   'lubuskie',
-                                  '³ódzkie',
-                                  'ma³opolskie',
+                                  '??dzkie',
+                                  'ma?opolskie',
                                   'mazowieckie',
                                   'opolskie',
                                   'podkarpackie',
                                   'podlaskie',
                                   'pomorskie',
-                                  'œl¹skie',
-                                  'œwiêtokrzyskie',
-                                  'warmiñsko-mazurskie',
+                                  '?l?skie',
+                                  '?wi?tokrzyskie',
+                                  'warmi?sko-mazurskie',
                                   'wielkopolskie',
                                   'zachodniopomorskie')))
 
@@ -61,7 +61,7 @@ wykres <- gosp %>%
            col='black') +
   facet_wrap(~woj, ncol=1) + 
   coord_flip() +
-  xlab("Województwo") +
+  xlab("Wojew?dztwo") +
   ggtitle("Wykres")
 
 print(wykres)
