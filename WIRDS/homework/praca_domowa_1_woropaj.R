@@ -1,5 +1,5 @@
 library(XLConnect)
-wb <- loadWorkbook("gospodarstwa.xls")
+wb <- loadWorkbook("WIRDS/datasets/gospodarstwa.xls")
 gosp <- readWorksheet(wb, sheet = "gospodarstwa")
 
 cechy <- readWorksheet(wb, sheet = "opis wariantów cech")
