@@ -196,14 +196,15 @@ gosp %>%
   group_by(woj) %>%
   mutate(procent = n/sum(n)) %>%
   ggplot(data = .,
-         aes(x = woj,
+         aes(x = 0,
              y = procent,
              group = klm,
              fill = klm)) +
   geom_bar(stat = 'identity',
            col='black') +
   facet_wrap(~woj, ncol=1) + 
-  coord_flip()
+  coord_flip() +
+  theme_bw()
 
 
 

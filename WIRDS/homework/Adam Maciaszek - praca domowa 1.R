@@ -1,18 +1,18 @@
-#Praca domowa z zajêæ 2.03.2015
+#Praca domowa z zaj?? 2.03.2015
 
 library(XLConnect)
 
 wb <- loadWorkbook('gospodarstwa.xls')
 gosp <- readWorksheet(wb,'gospodarstwa')
 vars <- readWorksheet(wb,'opis cech')
-vars_labels <- readWorksheet(wb,'opis wariantów cech')
+vars_labels <- readWorksheet(wb,'opis wariantÃ³w cech')
 
 library(dplyr)
 
 gosp <- gosp %>%
   mutate(klm = factor( x = klm,
                        levels = 6:1,
-                       labels = c('Wieœ›',
+                       labels = c('Wie??',
                                   '<20',
                                   '[20,100)',
                                   '[100,200)',
@@ -20,20 +20,20 @@ gosp <- gosp %>%
                                   '>=500'),
                        ordered = T)) %>%
   mutate(woj = factor(x = woj,
-                      labels = c('Dolnoœl¹skie',
+                      labels = c('Dolno?l?skie',
                                  'Kujawsko-pomorskie',
                                  'Lubelskie',
                                  'Lubuskie',
-                                 '£ódzkie',
-                                 'Ma³opolskie',
+                                 '??dzkie',
+                                 'Ma?opolskie',
                                  'Mazowieckie',
                                  'Opolskie',
                                  'Podkarpackie',
                                  'Podlaskie',
                                  'Pomorskie',
-                                 'Œl¹skie',
-                                 'Œwiêtokrzyskie',
-                                 'Warmiñsko-mazurskie',
+                                 '?l?skie',
+                                 '?wi?tokrzyskie',
+                                 'Warmi?sko-mazurskie',
                                  'Wielkopolskie',
                                  'Zachodniopomorskie'),
                       ordered = T))
@@ -57,8 +57,8 @@ wykres <- gosp %>%
 library(ggthemes)
 
 wykres + 
-  ggtitle('Udzia³ respondentów wed³ug klasy wielkoœci miejscowoœci w poszczególnych województwach') +
-  xlab('Klasa wielkoœci miejscowoœci') + 
+  ggtitle('Udzia? respondent?w wed?ug klasy wielko?ci miejscowo?ci w poszczeg?lnych wojew?dztwach') +
+  xlab('Klasa wielko?ci miejscowo?ci') + 
   ylab('Procent obserwacji') +
   guides(fill=FALSE) +
   theme_hc()
