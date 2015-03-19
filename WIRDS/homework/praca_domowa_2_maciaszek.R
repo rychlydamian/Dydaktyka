@@ -7,7 +7,8 @@ mieszkania <- read.table('nsp2011_mieszkania.txt',
                     header = T,
                     sep = '\t',
                     dec = ',',
-                    stringsAsFactors = F)
+                    stringsAsFactors = F,
+                    encoding = "UTF-8")
 
 mieszkania_liniowy <- mieszkania %>% gather(rok,y,-Kategoria)
 
